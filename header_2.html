@@ -1,0 +1,28 @@
+<div id="sidebar">
+    <div id="login" class="username d-flex">
+    {% if basket.username %}
+            <div class="skin">
+                <img src="https://mc-heads.net/body/{{basket.ign}}" alt="" class="drop-shadow">
+            </div>
+            <div class="username d-flex flex-column align-items-start justify-content-center">
+                <h1>Welcome, {{basket.ign}}</h1>
+                <a class="btn box-shadow dh-bg-red" href="/checkout/logout"><i class="bi bi-box-arrow-left"></i> Logout</a>
+            </div>
+                {% else %}
+                <div class="skin">
+                <img src="https://mc-heads.net/body/MHF_Steve" alt="" class="drop-shadow">
+            </div>
+            <div class="username d-flex flex-column align-items-start justify-content-center">
+                <h1>Welcome, Guest</h1>
+                <a class="btn box-shadow dh-bg-green" href="/login"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+            </div>
+            
+            {% endif %}
+            </div>
+            
+            
+      {% include "header_3.html" %}   
+
+
+    {{ modules|raw }}
+</div>

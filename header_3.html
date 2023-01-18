@@ -1,0 +1,43 @@
+<!-- Automatic Menu -->
+<nav class="navbar widget" id="menu">
+
+  <div class="show navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {% if page.category == "index" %}active{% endif %}">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      {% for category in store.categories %}
+         {% if category.subcategories|length > 0 %}
+         <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ category.name }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for subcategory in category.subcategories %}
+                <a class="dropdown-item" href="/category/{{ subcategory.id }}">{{ subcategory.name }}</a>
+            {% endfor %}
+        </div>
+      </li>
+             
+             
+         {% else %}
+         <li class="nav-item">
+        <a class="nav-link {% if category.active %}active{% endif %}" href="/category/{{ category.id }}">{{ category.name }}</a>
+      </li>
+         {% endif %}
+         {% endfor %}
+         {% for page in store.pages %}
+         
+         <li class="nav-item">
+        <a class="nav-link {% if page.active %}active{% endif %}" href="/{{ page.slug }}">{{ page.title }}</a>
+      </li>
+         {% endfor %}
+         
+    </ul>
+    
+      
+      
+      
+  </div>
+</nav>
+

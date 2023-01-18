@@ -1,0 +1,52 @@
+<header id="header">
+    <div id="header-wrap">
+        <div class="basket">
+            
+        </div>
+    
+    <div class="hero d-flex justify-content-center align-items-center">
+
+        <a href="#" class="d-flex justify-content-center align-items-center">
+            <img src={{store.logo}} alt="logo" id="logo" class="drop-shadow my-5"></a>
+    </div>
+    
+    <div id="server-discord-count">
+        <div class="container-lg h-100 d-flex flex-column flex-md-row justify-content-center align-items-center">
+        <button class="d-flex justify-content-center align-items-center drop-shadow h-100" id="serverLink" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" onclick="copyAddress();"
+        data-toggle="modal" data-target="#exampleModal" ><i class="bi bi-hdd-rack drop-shadow"></i>
+            <div class="serverLink-desc">
+                <p>Click to copy server address</p>
+                <h2 class="text--title" id="serverText" data-ip="http://play.mc-barbercraft.com"><span id="serverCount">0</span> Players Online</h2>
+            </div>
+            <div class="iconBoxed">
+            </div>
+        </button>
+
+        <a href="https://discord.com/invite/bedwars" class="header__discord header__externalLink d-flex justify-content-center align-items-center drop-shadow flex-row-reverse h-100" id="discordLink" target="_blank">
+            <i class="bi bi-discord drop-shadow"></i>
+            <div class="discordLink-desc">
+                <p>Discord - <span id="discordCount">64</span> Online</p>
+                <h2 class="text--title">Meet Other People</h2>
+            </div>
+        </a>
+    </div>
+    </div>
+    
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content p-2">
+      <div class="modal-body">
+          <h3>IP Copied</h3>
+          <h5>Now go join our server!</h5>
+      </div>
+      <div class="modal-footer d-flex justify-content-center align-items-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</header>

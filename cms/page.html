@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    
+    <div id="content-outer" class="container index">
+        <section class="p-0 row no-gutters layout-standard">
+            
+            <div class="col-12 col-lg-4 sidebar">
+                {% include "header_2.html" %}
+            </div>
+            <div class="col-12 col-lg-8 mainbar">
+                <div class="page-title dh-bg-light dh-border p-4 d-flex align-items-center">
+                    <h1 class="text-white text-shadow">{{ page.title }}</h1>
+                </div>
+                <div class="p-4 dh-bg-light dh-border desc">
+                    {{ page.metaData.content|raw }}
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {% include "content_footer.html" %}
+
+{% endblock %}

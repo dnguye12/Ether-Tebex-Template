@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div id="content-outer" class="container index">
+            <section class="p-0 row no-gutters layout-standard">
+            <div class="col-12 col-lg-4 sidebar">
+                {% include "header_2.html" %}
+            </div>
+            <div class="col-12 col-lg-8 mainbar">
+                <div class="page-title dh-bg-light dh-border p-4 d-flex align-items-center">
+                    <h1 class="text-white text-shadow">{{ category.name }}</h1>
+                </div>
+                <div class="dh-bg-light dh-border p-4 desc">
+                    <section class="bg-white p-0 row no-gutters ">
+
+                <div class="col-12 col-lg-8">
+                    <div class="p-xl-5 p-4">
+                        {% if category.description != "" %}
+                            <p>{{ category.description|raw }}</p>
+                        {% endif %}
+
+                    {% if category.packages|length > 0 %}
+
+                    {% if category.displayType == "list" %}
+
+                        <div class="row packages list">
+
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                {% for package in category.packages %}
+                                <tr>
+                                    <td class="name"><h4 class="mb-0"><strong class="h4">{{ package.name }} {% if package.countdownEnds %}<span class="text-danger">&nbsp;&nbsp;<i
+                                            class="fa fa-clock-o"></i> <br /><span class="countdown-to badge px-0" data-countdown="{{ package.countdownEnds }}">{{
+                                                            __("Ending Soon!") }}</span></span>{% endif %}</strong></h4></td>
+                                    <td class="price">
+                                        {% if package.customPrice == false and package.price > 0 %}
+                                        <strong class="h4">
+                                            {% if package.discount.applied %}
+                                            <del class="text-danger small font-weight-bold">{{ package.discount.original|money }}</del>
+                                            {% endif %}
+
+                                            {{ package.price|money }} <small>{{ basket.currency }}</small>
+                                        </strong>
+                                        {% endif %}
+                                    </td>
+                                    <td class="button text-right">
+                                        {% if package.basket %}
+                                            <a href="/checkout/packages/remove/{{ package.id }}" class="btn btn-primary">{{ __("Remove") }}</a>
+                                        {% else %}
+                                            <a href="/package/{{ package.id }}" class="btn btn-primary">{{ __("View") }} </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+
+                            <div class="row packages grid">
+
+                                {% for package in category.packages %}
+                                <div class="col-12 col-md-6">
+                                    <div class="package card mb-4">
+                                        <h4 class="card-header bg-transparent pb-0 border-bottom-0"><strong class="h4 mb-0">{{ package.name[:20] }}
+                                            {% if package.countdownEnds %}<br /><span class="text-danger"><i class="fa fa-clock-o"></i>
+                                                        <span class="countdown-to badge px-0" data-countdown="{{ package.countdownEnds }}">{{
+                                                            __("Ending Soon!") }}</span></span>{% endif %}
+                                        </strong></h4>
+
+                                        <div class="card-body">
+                                            <a href="/package/{{ package.id }}">
+                                                <img src="{{ package.image.url }}" class="card-img-top toggle-tooltip {% if package.image.borderless %}img-rounded{% else %}img-thumbnail{% endif %}"
+                                                     title="{{ __("Click for more details") }}" />
+                                            </a>
+                                        </div>
+
+                                        <div class="card-footer align-items-center d-flex">
+                                            {% if package.customPrice == false and package.price > 0.00 %}
+                                            <strong class="h4 mb-0">
+                                                {% if package.discount.applied %}
+                                                <del class="text-danger small font-weight-bold">
+                                                    {{ package.discount.original|money }}
+                                                </del>
+                                                {% endif %}
+                                                {{ package.price|money }} <small>{{ basket.currency }}</small>
+                                            </strong>
+                                            {% endif %}
+
+                                            {% if package.basket %}
+                                                <a href="/checkout/packages/remove/{{ package.id }}" class="btn btn-primary ml-auto">{{
+                                                __("Remove") }}</a>
+                                            {% else %}
+                                                <a href="/package/{{ package.id }}" class="btn btn-primary ml-auto">{{__("Buy") }}</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            {{ __("No packages to display in this category.") }}
+                            {% endif %}
+                        </div>
+                    </div>
+        </section>
+                </div>
+            </div>
+            </section>
+    </div>
+{% include "content_footer.html" %}
+
+{% endblock %}

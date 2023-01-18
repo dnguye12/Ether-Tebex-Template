@@ -1,0 +1,20 @@
+{% if module.display %}
+
+
+<a class="widget p-4 module-featured d-flex align-items-center" href="/package/{{ module.package.id }}">
+    <div class="featured-wrap d-flex justify-content-center align-items-center">
+    <img src="{{ module.package.image.url }}" class="card-img-top toggle-tooltip {% if module.package.image.borderless %}img-rounded{% else %}img-thumbnail{% endif %}"  title="{{ __("Click for more details") }}" />
+    </div>
+    <div class="desc">
+    <h4><i class="bi bi-star-fill icon-right"></i>{{ module.package.name }}</h4>
+    {% if module.package.customPrice == false and module.package.price > 0 %}
+                <strong class="h4 mb-0">
+                    {% if module.package.discount.applied %}
+                    <del class="text-danger small font-weight-bold">{{ module.package.discount.original|money }}</del>
+                    {% endif %}
+                    {{ module.package.price|money }} <small>{{ module.package.currency }}</small>
+                </strong>
+            {% endif %}
+    </div>
+</a>
+{% endif %}
