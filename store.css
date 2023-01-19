@@ -16,6 +16,9 @@
     --dh-bg: #13131D;
     --dh-bg-light: #242431;
     --dh-border: 1px solid #32324A;
+    
+    --dh-basket-bg: rgba(255,255,255,0.1);
+    --dh-basket-span: rgba(255,255,255,0.07);
 }
 
 body {
@@ -102,31 +105,37 @@ body {
   background-repeat: no-repeat;
   }
 
-#line-1 {
-    background-color: rgba(var(--col-black), 0.5);
+.basket-wrap {
+    padding-top: 1.5rem;
 }
 
-#line-1 .header-item {
-    flex: 1;
-    height: 70px;
-    line-height: 70px;
-    padding: 0px;
-    border-radius: 0px;
-    background-color: transparent;
-    margin: 0px;
-    color: white;
-    font-size: 18px;
-    text-transform: uppercase;
-    text-decoration: none;
-    letter-spacing: 2px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 350ms, color 350ms;
+.basket-wrap button {
+        background-color: var(--dh-basket-bg);
+        font-size: 14px;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border: none;
 }
 
-#line-1 .header-item:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: var(--col-orange);
+.basket-wrap button:hover {
+    background-color: var(--col-purple);
+}
+
+.basket-wrap button i {
+    margin-right: 2px;
+}
+
+.basket-wrap button span {
+    background-color: var(--dh-basket-span);
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    margin-left: 2px;
 }
 
   #header-wrap {
@@ -564,6 +573,14 @@ body {
  .module-payments, .module-featured, .module-goal, .module--topdonator, .module-text, .module-status {
      display: none !important;
  }
+ }
+ 
+ 
+ 
+ 
+ /* cms */
+ .cms p {
+     margin-bottom: 1em !important;
  }
  
  

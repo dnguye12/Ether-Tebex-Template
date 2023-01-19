@@ -1,52 +1,104 @@
 <header id="header">
-    <div id="header-wrap">
-        <div class="basket">
-            
-        </div>
-    
-    <div class="hero d-flex justify-content-center align-items-center">
-
-        <a href="#" class="d-flex justify-content-center align-items-center">
-            <img src={{store.logo}} alt="logo" id="logo" class="drop-shadow my-5"></a>
-    </div>
-    
-    <div id="server-discord-count">
-        <div class="container-lg h-100 d-flex flex-column flex-md-row justify-content-center align-items-center">
-        <button class="d-flex justify-content-center align-items-center drop-shadow h-100" id="serverLink" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" onclick="copyAddress();"
-        data-toggle="modal" data-target="#exampleModal" ><i class="bi bi-hdd-rack drop-shadow"></i>
+   <div id="header-wrap">
+       <div class="basket-wrap container d-flex align-items-center justify-content-end">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basketModal">
+      <i class="bi bi-basket-fill"></i> Cart <span>{{basket.packages|length}}</span>
+      </button>
+      <!-- Modal -->
+      <div class="modal fade" id="basketModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Cart (<span>{{basket.packages|length}}</span>)</h5>
+                  <div class="d-flex justify-content-center align-items-center">
+                     <div class="dropdown show me-2">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ basket.currency }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                           {% for currency in store.currencies %}
+                           {% if currency.code in [store.currency, "AUD", "BRL", "CAD", "DKK", "EUR", "NOK", "NZD", "GBP", "SEK", "USD", "PLN"] %}
+                           <a class="dropdown-item  {% if basket.currency==currency.code %}active {% endif %}>" href="?currency={{ currency.code }}">{{ currency.code }}</a>
+                           {% endif %}
+                           {% endfor %}
+                        </div>
+                     </div>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+               </div>
+               <div class="modal-body">
+                  {% if basket.packages|length > 0 %}
+                  <table class="table table-striped rounded border mb-0">
+                     <tbody>
+                        {% for package in basket.packages %}
+                        <tr>
+                           <td>{{ package.name[:25] }}</td>
+                           <td>{{ package.price|money }} <small>{{ basket.currency }}</small></td>
+                           <td class="text-right">
+                              <a href="/checkout/packages/remove/{{ package.id }}" class="btn-link text-danger border-0"><i
+                                 class="fas fa-times"></i>
+                              </a>
+                           </td>
+                        </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+                  {% else %}
+                  {% endif %}
+               </div>
+               <div class="modal-footer d-flex justify-content-between align-items-center">
+                  <div class=""> <strong>{{ __("Total") }}: </strong> {{
+                     basket.price|money }} <small>{{ basket.currency }}</small>
+                  </div>
+                  <div class="">
+                     <a class="btn btn-primary" href="/checkout/basket">
+                     {{__("Checkout") }}</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="hero d-flex justify-content-center align-items-center">
+      <a href="#" class="d-flex justify-content-center align-items-center">
+      <img src={{store.logo}} alt="logo" id="logo" class="drop-shadow my-5"></a>
+   </div>
+   <div id="server-discord-count">
+      <div class="container-lg h-100 d-flex flex-column flex-md-row justify-content-center align-items-center">
+         <button class="d-flex justify-content-center align-items-center drop-shadow h-100" id="serverLink" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" onclick="copyAddress();"
+            data-toggle="modal" data-target="#exampleModal" >
+            <i class="bi bi-hdd-rack drop-shadow"></i>
             <div class="serverLink-desc">
-                <p>Click to copy server address</p>
-                <h2 class="text--title" id="serverText" data-ip="http://play.mc-barbercraft.com"><span id="serverCount">0</span> Players Online</h2>
+               <p>Click to copy server address</p>
+               <h2 class="text--title" id="serverText" data-ip="http://play.mc-barbercraft.com"><span id="serverCount">0</span> Players Online</h2>
             </div>
             <div class="iconBoxed">
             </div>
-        </button>
-
-        <a href="https://discord.com/invite/bedwars" class="header__discord header__externalLink d-flex justify-content-center align-items-center drop-shadow flex-row-reverse h-100" id="discordLink" target="_blank">
+         </button>
+         <a href="https://discord.com/invite/bedwars" class="header__discord header__externalLink d-flex justify-content-center align-items-center drop-shadow flex-row-reverse h-100" id="discordLink" target="_blank">
             <i class="bi bi-discord drop-shadow"></i>
             <div class="discordLink-desc">
-                <p>Discord - <span id="discordCount">64</span> Online</p>
-                <h2 class="text--title">Meet Other People</h2>
+               <p>Discord - <span id="discordCount">64</span> Online</p>
+               <h2 class="text--title">Meet Other People</h2>
             </div>
-        </a>
-    </div>
-    </div>
-    
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content p-2">
-      <div class="modal-body">
-          <h3>IP Copied</h3>
-          <h5>Now go join our server!</h5>
+         </a>
       </div>
-      <div class="modal-footer d-flex justify-content-center align-items-center">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+   </div>
+   <!-- Modal -->
+   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content p-2">
+            <div class="modal-body">
+               <h3>IP Copied</h3>
+               <h5>Now go join our server!</h5>
+            </div>
+            <div class="modal-footer d-flex justify-content-center align-items-center">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+         </div>
       </div>
-    </div>
-  </div>
-</div>
-</div>
+   </div>
+   </div>
 </header>
