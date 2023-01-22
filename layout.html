@@ -225,6 +225,12 @@ function copyTextToClipboard(text) {
     });
 }
 
+function subtractPackage(id) {
+                let inputs = [...document.querySelectorAll(".package__quantity")].filter(i => i.name == `quantity[${id}]`);
+                inputs.forEach(input => input.setAttribute('value', input.value-1));
+                document.getElementById(`package--${id}`).submit();
+            }
+
 </script>
 </body>
 

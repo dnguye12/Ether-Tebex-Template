@@ -583,6 +583,13 @@ body {
      margin-bottom: 1em !important;
  }
  
+  /* Category */
+  .packages.grid {
+      display: grid;
+          grid-auto-rows: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+  }
+ 
  
  /*         Login           */
  .username .input-group {

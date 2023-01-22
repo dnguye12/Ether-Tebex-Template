@@ -34,8 +34,14 @@
                      <tbody>
                         {% for package in basket.packages %}
                         <tr>
+                            {% if package.quantity == 1 or package.disableQuantity %}
                            <td>{{ package.name[:25] }}</td>
                            <td>{{ package.price|money }} <small>{{ basket.currency }}</small></td>
+                           {% else %}
+                           <td>{{ package.name[:25] }}<i class="bi bi-x"></i>{{package.quantity}}</td>
+                           <td>{{ package.price|money * package.quantity}} <small>{{ basket.currency }}</small></td>
+                           {% endif %}
+                           
                            <td class="text-right">
                               <a href="/checkout/packages/remove/{{ package.id }}" class="btn-link text-danger border-0"><i
                                  class="fas fa-times"></i>
